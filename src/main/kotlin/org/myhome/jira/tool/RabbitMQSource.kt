@@ -1,11 +1,10 @@
 package org.myhome.jira.tool
 
-import akka.actor.AbstractActor
 import com.rabbitmq.client.Connection
 import com.rabbitmq.client.ConnectionFactory
 
 
-class RabbitMQSource(val options: RMQOptions): AbstractActor() {
+class RabbitMQSource<T>(): EventSource<T>() {
 
     private val factory = ConnectionFactory()
     private lateinit var connection: Connection
@@ -27,4 +26,9 @@ class RabbitMQSource(val options: RMQOptions): AbstractActor() {
     }
 }
 
-data class RMQOptions(val name: String)
+data class RMQOptions(
+        val host: String,
+        val port: Int,
+        val username: String,
+        val password: String
+)
